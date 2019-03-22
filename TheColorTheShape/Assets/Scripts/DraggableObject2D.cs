@@ -5,7 +5,7 @@ using UnityEngine;
 /* This script allows an object to be draggable by holding left mouse button.
  * The dragging is only in 2 dimensions.
  * Script from https://www.youtube.com/watch?v=Be9v-sYO-Aw  */
-public class DraggableObject : MonoBehaviour
+public class DraggableObject2D : MonoBehaviour
 {
 
     public GameObject currentStick;
@@ -45,14 +45,15 @@ public class DraggableObject : MonoBehaviour
                 draggingMode = true; 
             }
 
-            // (3D)
-            // Convert moust click position to a ray
+            // // (3D)
+            // // Convert moust click position to a ray
             // Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             // // If a ray hit a collider (3D)
             // if (Physics.Raycast(ray, out hit))
             // {
-            //     currentStick = hit.collider.GameObject;
+            //     // currentStick = hit.collider.gameObject;
+            //     currentStick = hit.collider.gameObject;
             //     stickCenter = currentStick.transform.position;
             //     touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             //     offset = touchPosition - stickCenter;
