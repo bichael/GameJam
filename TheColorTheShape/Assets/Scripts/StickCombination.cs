@@ -9,12 +9,14 @@ public class StickCombination : MonoBehaviour
     BoxCollider2D stickSlot;
     EventSystem m_EventSystem;
     public Color desiredColor;
+    ShapeHolder shapeHolder;
 
     // Start is called before the first frame update
     void Start()
     {
         m_EventSystem = EventSystem.current;   
         stickSlot = GetComponent<BoxCollider2D>();
+        shapeHolder = this.transform.parent.GetComponent<ShapeHolder>();
     }
 
     // Update is called once per frame
@@ -44,6 +46,7 @@ public class StickCombination : MonoBehaviour
                     // TODO change this to allow the stick to be repositioned after placement.
                     currentStick.SetActive(false);
                     stickSlot.GetComponent<SpriteRenderer>().color = currentStickColor;
+                    shapeHolder.AddToFilledCount();
                 }
             }
         }

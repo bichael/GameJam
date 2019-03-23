@@ -37,7 +37,7 @@ public class DraggableObject2D : MonoBehaviour
             // If a ray hit a collider (2D)            
             var hit2d = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
-            if (hit2d) 
+            if (hit2d && (hit2d.collider.gameObject.tag == "Stick")) 
             {
                 currentStick = hit2d.collider.gameObject;
                 stickCenter = currentStick.transform.position; 
@@ -75,19 +75,16 @@ public class DraggableObject2D : MonoBehaviour
             
         }
 
-        if (currentStick)
+        if (currentStick && (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)))
         {
-            if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
-            {
-                if (currentStick == m_EventSystem.currentSelectedGameObject)
-                    currentStick.transform.Rotate(Vector3.forward * velocity * Time.deltaTime);
-            }
-            
-            if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
-            {
-                if (currentStick == m_EventSystem.currentSelectedGameObject)
-                    currentStick.transform.Rotate(Vector3.back * velocity * Time.deltaTime);
-            }
+            if (currentStick == m_EventSystem.currentSelectedGameObject)
+                currentStick.transform.Rotate(Vector3.forward * velocity * Time.deltaTime);
+        }
+        
+        if (currentStick && (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)))
+        {
+            if (currentStick == m_EventSystem.currentSelectedGameObject)
+                currentStick.transform.Rotate(Vector3.back * velocity * Time.deltaTime);
         }
 
         // When mouse is released
