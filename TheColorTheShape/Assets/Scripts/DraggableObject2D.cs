@@ -1,15 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 /* This script allows an object to be draggable by holding left mouse button.
  * The dragging is only in 2 dimensions.
  * Script from https://www.youtube.com/watch?v=Be9v-sYO-Aw  */
 public class DraggableObject2D : MonoBehaviour
 {
-
+    EventSystem m_EventSystem;
     public GameObject currentStick;
-
     public Vector3 stickCenter;  // GameObject center
     public Vector3 touchPosition;  // Touch (click) position
     public Vector3 offset;  // Vector between touch/click to object center
@@ -22,7 +22,7 @@ public class DraggableObject2D : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        m_EventSystem = EventSystem.current;        
     }
 
     // Update is called once per frame
@@ -43,6 +43,7 @@ public class DraggableObject2D : MonoBehaviour
                 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition); 
                 offset = touchPosition - stickCenter; 
                 draggingMode = true; 
+                m_EventSystem.SetSelectedGameObject(currentStick);
             }
 
             // // (3D)
