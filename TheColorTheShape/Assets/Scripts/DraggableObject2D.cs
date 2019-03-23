@@ -14,6 +14,7 @@ public class DraggableObject2D : MonoBehaviour
     public Vector3 touchPosition;  // Touch (click) position
     public Vector3 offset;  // Vector between touch/click to object center
     public Vector3 newCenter;  // position to drop object
+    public float velocity = 30.0f;
 
     RaycastHit hit;  // Determine if click finds object using ray
 
@@ -38,10 +39,10 @@ public class DraggableObject2D : MonoBehaviour
 
             if (hit2d) 
             {
-                currentStick = hit2d.collider.gameObject; 
+                currentStick = hit2d.collider.gameObject;
                 stickCenter = currentStick.transform.position; 
                 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition); 
-                offset = touchPosition - stickCenter; 
+                offset = touchPosition - stickCenter;
                 draggingMode = true; 
                 m_EventSystem.SetSelectedGameObject(currentStick);
             }
@@ -74,10 +75,26 @@ public class DraggableObject2D : MonoBehaviour
             
         }
 
+        if (currentStick)
+        {
+            if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+            {
+                if (currentStick == m_EventSystem.currentSelectedGameObject)
+                    currentStick.transform.Rotate(Vector3.forward * velocity * Time.deltaTime);
+            }
+            
+            if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+            {
+                if (currentStick == m_EventSystem.currentSelectedGameObject)
+                    currentStick.transform.Rotate(Vector3.back * velocity * Time.deltaTime);
+            }
+        }
+
         // When mouse is released
         if (Input.GetMouseButtonUp(0))
         {
             draggingMode = false;
+            currentStick = null;
         }
 #endif
     }
