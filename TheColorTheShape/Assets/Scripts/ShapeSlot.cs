@@ -6,6 +6,7 @@ using UnityEngine;
 // This script enables Slots to accept Sticks, and display a message when all are filled.
 public class ShapeSlot : MonoBehaviour
 {
+    public Color desiredColor;
     List<GameObject> stickSlotsList;
     int maxSides;
     int sidesFilled;
@@ -32,16 +33,26 @@ public class ShapeSlot : MonoBehaviour
         
     }
 
-    public void AddToSidesFilled() {
-        sidesFilled += 1;
-        if (sidesFilled == maxSides) {
-            // TODO do something cooler when a shape is completed.
-            Debug.Log("Shape finished!");
-        }
-        Camera.main.GetComponent<DraggableObject2D>().draggingMode = false;
+    public void AddToSidesFilled(bool increment) {
+        if (increment)
+            sidesFilled += 1;
     }
 
-    public void RemoveFromSidesFilled() {
-        sidesFilled -= 1;
+    public void RemoveFromSidesFilled(bool decrement) {
+        if (decrement)
+            sidesFilled -= 1;
+    }
+
+    public void CheckShapeCompleteness()
+    {
+        if (sidesFilled == maxSides) {
+            foreach (GameObject slot in stickSlotsList)
+            {
+                if (slot.GetComponent<StickSlot>().topStickColor != desiredColor)
+                    return;
+            }
+            // Lock shape into place, don't allow further additions/removal.
+            Debug.Log("Shape finished! With passing colors!");
+        }
     }
 }
