@@ -15,6 +15,7 @@ public class DraggableObject2D : MonoBehaviour
     public Vector3 offset;  // Vector between touch/click to object center
     public Vector3 newCenter;  // position to drop object
     public float velocity = 30.0f;
+    public GameObject[] slotGameObjects;
 
     RaycastHit hit;  // Determine if click finds object using ray
 
@@ -23,7 +24,8 @@ public class DraggableObject2D : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_EventSystem = EventSystem.current;        
+        m_EventSystem = EventSystem.current;   
+        slotGameObjects = GameObject.FindGameObjectsWithTag("Slot");
     }
 
     // Update is called once per frame
@@ -46,21 +48,6 @@ public class DraggableObject2D : MonoBehaviour
                 draggingMode = true; 
                 m_EventSystem.SetSelectedGameObject(currentStick);
             }
-
-            // // (3D)
-            // // Convert moust click position to a ray
-            // Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            // // If a ray hit a collider (3D)
-            // if (Physics.Raycast(ray, out hit))
-            // {
-            //     // currentStick = hit.collider.gameObject;
-            //     currentStick = hit.collider.gameObject;
-            //     stickCenter = currentStick.transform.position;
-            //     touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            //     offset = touchPosition - stickCenter;
-            //     draggingMode = true;
-            // }
         }
 
         // Every frame when user holds on left mouse
@@ -68,6 +55,16 @@ public class DraggableObject2D : MonoBehaviour
         {
             if (draggingMode)
             {
+                // if stick is in a slot:  remove it from that slot now
+                foreach (GameObject slot in slotGameObjects) 
+                {
+                    if (slot.GetComponent<StickSlot>().heldSticks.Contains(currentStick)) {
+                        slot.GetComponent<StickSlot>().heldSticks.Remove(currentStick);
+                        slot.transform.parent.GetComponent<ShapeSlot>().RemoveFromSidesFilled();
+                        // avoid unnecessary computations by exiting after one side is removed, since only 1 side can be removed max at a time
+                        break;
+                    }
+                }
                 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 newCenter = touchPosition - offset;
                 currentStick.transform.position = new Vector3(newCenter.x, newCenter.y, newCenter.z);

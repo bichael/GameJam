@@ -9,13 +9,12 @@ public class ShapeSlot : MonoBehaviour
 {
     // EventSystem m_EventSystem;
     List<GameObject> stickSlotsList;
-    int sideCount;
-    int filledCount;
-    public GameObject droppedStick;
+    int maxSides;
+    int sidesFilled;
     // Start is called before the first frame update
     void Start()
     {
-        filledCount = 0;
+        sidesFilled = 0;
         stickSlotsList = new List<GameObject>();
         // Get all children stick slots
         Transform t = gameObject.transform;
@@ -27,7 +26,7 @@ public class ShapeSlot : MonoBehaviour
                 stickSlotsList.Add(childGameObject);
                 // return t.GetChild(i).gameObject;
         }
-        sideCount = stickSlotsList.Count;
+        maxSides = stickSlotsList.Count;
         // m_EventSystem = EventSystem.current;   
     }
 
@@ -37,13 +36,16 @@ public class ShapeSlot : MonoBehaviour
         
     }
 
-    public void AddToFilledCount(GameObject currentStick) {
-        filledCount += 1;
-        if (filledCount == sideCount) {
+    public void AddToSidesFilled() {
+        sidesFilled += 1;
+        if (sidesFilled == maxSides) {
             // TODO do something cooler when a shape is completed.
             Debug.Log("Shape finished!");
         }
-        droppedStick = currentStick;
         Camera.main.GetComponent<DraggableObject2D>().draggingMode = false;
+    }
+
+    public void RemoveFromSidesFilled() {
+        sidesFilled -= 1;
     }
 }
