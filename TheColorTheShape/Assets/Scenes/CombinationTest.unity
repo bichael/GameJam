@@ -213,6 +213,7 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: 0}
   newCenter: {x: 0, y: 0, z: 0}
   velocity: 30
+  slotGameObjects: []
   draggingMode: 0
 --- !u!1001 &111735317
 PrefabInstance:
@@ -249,7 +250,7 @@ PrefabInstance:
     - target: {fileID: 2618576835714859873, guid: 9bbacc76eee549c42ba7803dcdbe8bf9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2618576835714859873, guid: 9bbacc76eee549c42ba7803dcdbe8bf9,
         type: 3}
@@ -356,7 +357,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7311fe71c33e6a1499dbf38669f110ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  droppedStick: {fileID: 0}
 --- !u!4 &733183999 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2618576835714859873, guid: 9bbacc76eee549c42ba7803dcdbe8bf9,
@@ -1262,7 +1262,7 @@ PrefabInstance:
     - target: {fileID: 2618576835714859873, guid: 9bbacc76eee549c42ba7803dcdbe8bf9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2618576835714859873, guid: 9bbacc76eee549c42ba7803dcdbe8bf9,
         type: 3}
@@ -1352,7 +1352,7 @@ PrefabInstance:
     - target: {fileID: 2618576835714859873, guid: 9bbacc76eee549c42ba7803dcdbe8bf9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2618576835714859873, guid: 9bbacc76eee549c42ba7803dcdbe8bf9,
         type: 3}
@@ -1731,6 +1731,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   desiredColor: {r: 0, g: 0.05882353, b: 1, a: 1}
+  heldSticks: []
 --- !u!4 &1125373706532445892
 Transform:
   m_ObjectHideFlags: 0
@@ -2000,6 +2001,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   desiredColor: {r: 0, g: 0.05882353, b: 1, a: 1}
+  heldSticks: []
 --- !u!1 &2132920700614991820
 GameObject:
   m_ObjectHideFlags: 0
@@ -2032,6 +2034,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   desiredColor: {r: 0, g: 0.05882353, b: 1, a: 1}
+  heldSticks: []
 --- !u!4 &2289724500661970606
 Transform:
   m_ObjectHideFlags: 0
@@ -2559,7 +2562,7 @@ PrefabInstance:
     - target: {fileID: 2740468534492871171, guid: 9bbacc76eee549c42ba7803dcdbe8bf9,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2740468534492871171, guid: 9bbacc76eee549c42ba7803dcdbe8bf9,
         type: 3}
@@ -2625,6 +2628,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SortingOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8934013285265278433, guid: 9bbacc76eee549c42ba7803dcdbe8bf9,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8934013285265278433, guid: 9bbacc76eee549c42ba7803dcdbe8bf9,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8934013285265278433, guid: 9bbacc76eee549c42ba7803dcdbe8bf9,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bbacc76eee549c42ba7803dcdbe8bf9, type: 3}

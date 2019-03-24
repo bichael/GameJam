@@ -30,6 +30,7 @@ public class StickSlot : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         GameObject currentStick = collision.gameObject;
+        SpriteRenderer currentStickSprite = currentStick.GetComponent<SpriteRenderer>();
 
         // Exit early if *somehow* an object that is not the object being dragged collides with a stickSlot
         if (currentStick != m_EventSystem.currentSelectedGameObject)
@@ -42,24 +43,34 @@ public class StickSlot : MonoBehaviour
             // And the stick is rotated along the z axis similarly enough
             if (Mathf.Abs(currentStick.transform.rotation.z - gameObject.transform.rotation.z) < 10) 
             {
-                // If the slot is empty, simply add stick to slot. // if slot.Count==1: mix colors and add 1 to sorting order.
+                // If the slot is empty, simply add stick to slot. 
                 if (heldSticks.Count == 0) 
                 {
-                    // Hide current stick, change color of stickslot to take the color of the current stick.
-                    // currentStick.SetActive(false);
-                    // stickSlot.GetComponent<SpriteRenderer>().color = currentStickColor;
-                    // currentStick.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
-                // Sorting order will keep sticks above slots in reference to the camera view.
+                    // Block moved outside of condition (below) to remove avoid code redundancy.
+                } else if (heldSticks.Count == 1 ) // If the color is different than the held stick, mix them.
+                {
+                    Color heldStickColor = heldSticks[0].GetComponent<SpriteRenderer>().color;
+                    if (currentStickSprite.color != heldStickColor) {
+                        currentStick.GetComponent<SpriteRenderer>().color = MixColors(currentStickSprite.color, heldStickColor);
+                        currentStickSprite.sortingOrder = 3;
+                    } else // Early exit to avoid stick placement if the colors match.
+                    {
+                        return;
+                    }
+                } else // Avoid stick placement if there are 2 sticks already by returning from the function
+                {
+                    return;
+                }
                 currentStick.transform.position = gameObject.transform.position;
                 currentStick.transform.eulerAngles = gameObject.transform.eulerAngles;
                 shapeSlot.AddToSidesFilled();
                 heldSticks.Add(currentStick);
-                } else if (heldSticks.Count == 1)
-                {
-                    Debug.Log("This is where we would blend colors.");
-                    // Color currentStickColor = currentStick.GetComponent<SpriteRenderer>().color;
-                }
             }
         }
+    }
+
+    private Color MixColors(Color color1, Color color2) 
+    {
+        return Color.Lerp(color1, color2, 0.5f);
     }
 }

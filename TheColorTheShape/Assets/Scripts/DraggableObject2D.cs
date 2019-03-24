@@ -14,6 +14,7 @@ public class DraggableObject2D : MonoBehaviour
     public Vector3 touchPosition;  // Touch (click) position
     public Vector3 offset;  // Vector between touch/click to object center
     public Vector3 newCenter;  // position to drop object
+    SpriteRenderer currentStickSprite;
     public float velocity = 30.0f;
     public GameObject[] slotGameObjects;
 
@@ -45,6 +46,7 @@ public class DraggableObject2D : MonoBehaviour
                 stickCenter = currentStick.transform.position; 
                 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition); 
                 offset = touchPosition - stickCenter;
+                currentStickSprite = currentStick.GetComponent<SpriteRenderer>();
                 draggingMode = true; 
                 m_EventSystem.SetSelectedGameObject(currentStick);
             }
@@ -61,7 +63,13 @@ public class DraggableObject2D : MonoBehaviour
                     if (slot.GetComponent<StickSlot>().heldSticks.Contains(currentStick)) {
                         slot.GetComponent<StickSlot>().heldSticks.Remove(currentStick);
                         slot.transform.parent.GetComponent<ShapeSlot>().RemoveFromSidesFilled();
-                        // avoid unnecessary computations by exiting after one side is removed, since only 1 side can be removed max at a time
+                        if (currentStickSprite.color != currentStick.GetComponent<Stick>().originalColor) 
+                        {
+                            currentStickSprite.color = currentStick.GetComponent<Stick>().originalColor;
+                            currentStickSprite.sortingOrder = 2;
+                        }
+                        // avoid unnecessary computations by exiting loop, since only 1 side can be removed at a time
+                        // TODO change into a while loop?
                         break;
                     }
                 }
