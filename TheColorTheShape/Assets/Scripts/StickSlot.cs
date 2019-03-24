@@ -8,9 +8,9 @@ public class StickSlot : MonoBehaviour
     BoxCollider2D stickCollider;
     BoxCollider2D stickSlot;
     EventSystem m_EventSystem;
-    public Color desiredColor;
     ShapeSlot shapeSlot;
     public List<GameObject> heldSticks;
+    public Color topStickColor;
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +46,7 @@ public class StickSlot : MonoBehaviour
                 // If the slot is empty, simply add stick to slot. 
                 if (heldSticks.Count == 0) 
                 {
+                    shapeSlot.AddToSidesFilled(true);
                     // Block moved outside of condition (below) to remove avoid code redundancy.
                 } else if (heldSticks.Count == 1 ) // If the color is different than the held stick, mix them.
                 {
@@ -53,6 +54,7 @@ public class StickSlot : MonoBehaviour
                     if (currentStickSprite.color != heldStickColor) {
                         currentStick.GetComponent<SpriteRenderer>().color = MixColors(currentStickSprite.color, heldStickColor);
                         currentStickSprite.sortingOrder = 3;
+                        shapeSlot.AddToSidesFilled(false);
                     } else // Early exit to avoid stick placement if the colors match.
                     {
                         return;
@@ -61,10 +63,12 @@ public class StickSlot : MonoBehaviour
                 {
                     return;
                 }
+                Camera.main.GetComponent<DraggableObject2D>().draggingMode = false;
                 currentStick.transform.position = gameObject.transform.position;
                 currentStick.transform.eulerAngles = gameObject.transform.eulerAngles;
-                shapeSlot.AddToSidesFilled();
                 heldSticks.Add(currentStick);
+                topStickColor = currentStick.GetComponent<SpriteRenderer>().color;
+                shapeSlot.CheckShapeCompleteness();
             }
         }
     }

@@ -62,11 +62,17 @@ public class DraggableObject2D : MonoBehaviour
                 {
                     if (slot.GetComponent<StickSlot>().heldSticks.Contains(currentStick)) {
                         slot.GetComponent<StickSlot>().heldSticks.Remove(currentStick);
-                        slot.transform.parent.GetComponent<ShapeSlot>().RemoveFromSidesFilled();
-                        if (currentStickSprite.color != currentStick.GetComponent<Stick>().originalColor) 
+                        Color originalColor = currentStick.GetComponent<Stick>().originalColor;
+                        // If the stick being removed has a modified color (i.e. there is another stick under):
+                        if (currentStickSprite.color != originalColor) 
                         {
-                            currentStickSprite.color = currentStick.GetComponent<Stick>().originalColor;
+                            slot.transform.parent.GetComponent<ShapeSlot>().RemoveFromSidesFilled(false);
+                            currentStickSprite.color = originalColor;
                             currentStickSprite.sortingOrder = 2;
+                            slot.GetComponent<StickSlot>().topStickColor = slot.GetComponent<StickSlot>().heldSticks[0].GetComponent<SpriteRenderer>().color;
+                        } else {
+                            slot.transform.parent.GetComponent<ShapeSlot>().RemoveFromSidesFilled(true);
+                            slot.GetComponent<StickSlot>().topStickColor = Color.white;
                         }
                         // avoid unnecessary computations by exiting loop, since only 1 side can be removed at a time
                         // TODO change into a while loop?
