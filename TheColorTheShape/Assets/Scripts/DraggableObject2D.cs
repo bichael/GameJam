@@ -75,13 +75,13 @@ public class DraggableObject2D : MonoBehaviour
             
         }
 
-        if (currentStick && (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)))
+        if (currentStick && draggingMode && (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)))
         {
             if (currentStick == m_EventSystem.currentSelectedGameObject)
                 currentStick.transform.Rotate(Vector3.forward * velocity * Time.deltaTime);
         }
         
-        if (currentStick && (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)))
+        if (currentStick && draggingMode && (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)))
         {
             if (currentStick == m_EventSystem.currentSelectedGameObject)
                 currentStick.transform.Rotate(Vector3.back * velocity * Time.deltaTime);

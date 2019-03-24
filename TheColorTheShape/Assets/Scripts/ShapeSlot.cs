@@ -5,12 +5,13 @@ using UnityEngine;
 
 // This will attach to a "Shape", which is a formation of StickSlots.
 // This script enables Slots to accept Sticks, and display a message when all are filled.
-public class ShapeHolder : MonoBehaviour
+public class ShapeSlot : MonoBehaviour
 {
     // EventSystem m_EventSystem;
     List<GameObject> stickSlotsList;
     int sideCount;
     int filledCount;
+    public GameObject droppedStick;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,11 +37,13 @@ public class ShapeHolder : MonoBehaviour
         
     }
 
-    public void AddToFilledCount() {
+    public void AddToFilledCount(GameObject currentStick) {
         filledCount += 1;
         if (filledCount == sideCount) {
             // TODO do something cooler when a shape is completed.
             Debug.Log("Shape finished!");
         }
+        droppedStick = currentStick;
+        Camera.main.GetComponent<DraggableObject2D>().draggingMode = false;
     }
 }
