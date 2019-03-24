@@ -43,6 +43,13 @@ public class DraggableObject2D : MonoBehaviour
             if (hit2d && (hit2d.collider.gameObject.tag == "Stick")) 
             {
                 currentStick = hit2d.collider.gameObject;
+
+                // Early exit from dragging if a stick is part of a completed shape.
+                StickSlot stickParentSlot = currentStick.GetComponent<Stick>().GetParentSlot();
+                if (stickParentSlot != null) 
+                    if (stickParentSlot.GetShapeSlot().shapeComplete)
+                        return;
+
                 stickCenter = currentStick.transform.position; 
                 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition); 
                 offset = touchPosition - stickCenter;
@@ -62,14 +69,18 @@ public class DraggableObject2D : MonoBehaviour
                 {
                     if (slot.GetComponent<StickSlot>().heldSticks.Contains(currentStick)) {
                         slot.GetComponent<StickSlot>().heldSticks.Remove(currentStick);
+                        currentStick.GetComponent<Stick>().SetParentSlot(null);
                         Color originalColor = currentStick.GetComponent<Stick>().originalColor;
                         // If the stick being removed has a modified color (i.e. there is another stick under):
                         if (currentStickSprite.color != originalColor) 
                         {
-                            slot.transform.parent.GetComponent<ShapeSlot>().RemoveFromSidesFilled(false);
+                            ShapeSlot stickShape = slot.transform.parent.GetComponent<ShapeSlot>();
+                            stickShape.RemoveFromSidesFilled(false);
                             currentStickSprite.color = originalColor;
                             currentStickSprite.sortingOrder = 2;
-                            slot.GetComponent<StickSlot>().topStickColor = slot.GetComponent<StickSlot>().heldSticks[0].GetComponent<SpriteRenderer>().color;
+                            StickSlot currentStickSlot = slot.GetComponent<StickSlot>();
+                            currentStickSlot.topStickColor = currentStickSlot.heldSticks[0].GetComponent<SpriteRenderer>().color;
+                            stickShape.CheckShapeCompleteness();
                         } else {
                             slot.transform.parent.GetComponent<ShapeSlot>().RemoveFromSidesFilled(true);
                             slot.GetComponent<StickSlot>().topStickColor = Color.white;

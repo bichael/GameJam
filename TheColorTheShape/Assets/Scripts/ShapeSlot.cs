@@ -7,6 +7,7 @@ using UnityEngine;
 public class ShapeSlot : MonoBehaviour
 {
     public Color desiredColor;
+    public bool shapeComplete;
     List<GameObject> stickSlotsList;
     int maxSides;
     int sidesFilled;
@@ -51,8 +52,7 @@ public class ShapeSlot : MonoBehaviour
                 if (slot.GetComponent<StickSlot>().topStickColor != desiredColor)
                     return;
             }
-            // Lock shape into place, don't allow further additions/removal.
-            Debug.Log("Shape finished! With passing colors!");
+            shapeComplete = true;
         }
     }
 }

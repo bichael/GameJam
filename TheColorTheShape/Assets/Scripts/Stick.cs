@@ -5,6 +5,7 @@ using UnityEngine;
 public class Stick : MonoBehaviour
 {
     public Color originalColor;
+    public StickSlot parentSlot;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,5 +16,15 @@ public class Stick : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void SetParentSlot(StickSlot slot)
+    {
+        parentSlot = slot;
+    }
+
+    public StickSlot GetParentSlot()
+    {
+        return parentSlot; 
     }
 }

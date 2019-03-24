@@ -29,6 +29,9 @@ public class StickSlot : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // Early exit if the outer shape is already complete.
+        if (shapeSlot.shapeComplete)
+            return;
         GameObject currentStick = collision.gameObject;
         SpriteRenderer currentStickSprite = currentStick.GetComponent<SpriteRenderer>();
 
@@ -67,6 +70,7 @@ public class StickSlot : MonoBehaviour
                 currentStick.transform.position = gameObject.transform.position;
                 currentStick.transform.eulerAngles = gameObject.transform.eulerAngles;
                 heldSticks.Add(currentStick);
+                currentStick.GetComponent<Stick>().SetParentSlot(this);
                 topStickColor = currentStick.GetComponent<SpriteRenderer>().color;
                 shapeSlot.CheckShapeCompleteness();
             }
@@ -76,5 +80,10 @@ public class StickSlot : MonoBehaviour
     private Color MixColors(Color color1, Color color2) 
     {
         return Color.Lerp(color1, color2, 0.5f);
+    }
+
+    public ShapeSlot GetShapeSlot()
+    {
+        return shapeSlot;
     }
 }

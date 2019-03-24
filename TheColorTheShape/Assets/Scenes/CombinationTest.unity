@@ -357,6 +357,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7311fe71c33e6a1499dbf38669f110ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  desiredColor: {r: 0, g: 0.05882353, b: 1, a: 1}
+  shapeComplete: 0
 --- !u!4 &733183999 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2618576835714859873, guid: 9bbacc76eee549c42ba7803dcdbe8bf9,
@@ -1730,8 +1732,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8f788db54922ad4ca51ae1e179fdf2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  desiredColor: {r: 0, g: 0.05882353, b: 1, a: 1}
   heldSticks: []
+  topStickColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!4 &1125373706532445892
 Transform:
   m_ObjectHideFlags: 0
@@ -2000,8 +2002,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8f788db54922ad4ca51ae1e179fdf2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  desiredColor: {r: 0, g: 0.05882353, b: 1, a: 1}
   heldSticks: []
+  topStickColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &2132920700614991820
 GameObject:
   m_ObjectHideFlags: 0
@@ -2033,8 +2035,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8f788db54922ad4ca51ae1e179fdf2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  desiredColor: {r: 0, g: 0.05882353, b: 1, a: 1}
   heldSticks: []
+  topStickColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!4 &2289724500661970606
 Transform:
   m_ObjectHideFlags: 0
