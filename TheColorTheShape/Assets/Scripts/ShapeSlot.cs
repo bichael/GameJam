@@ -11,6 +11,8 @@ public class ShapeSlot : MonoBehaviour
     List<GameObject> stickSlotsList;
     int maxSides;
     int sidesFilled;
+    public GameObject shapeInUI;
+    public GameObject victoryPanel;
     // Start is called before the first frame update
     void Start()
     {
@@ -53,6 +55,19 @@ public class ShapeSlot : MonoBehaviour
                     return;
             }
             shapeComplete = true;
+            if (shapeInUI != null) {
+                shapeInUI.SetActive(false);
+            }
+            // If all objects tagged "ShapesToBeMade" are null:  VICTORY!
+            // FindObjectsWithTag ignores inactive GameObjects, which is desied.
+            List<GameObject> shapesLeftToBeMade = new List<GameObject>(GameObject.FindGameObjectsWithTag("Shape"));
+            if (shapesLeftToBeMade.Count == 0)
+            {
+                victoryPanel.SetActive(true);
+                // TODO VictoryPopup.SetActive(true)
+                // --> Contains "Next level" panel
+                Debug.Log("VICTORY.");
+            }
         }
     }
 }
