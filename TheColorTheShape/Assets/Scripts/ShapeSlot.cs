@@ -48,11 +48,15 @@ public class ShapeSlot : MonoBehaviour
 
     public void CheckShapeCompleteness()
     {
+        Debug.Log("checking if shape complete");
         if (sidesFilled == maxSides) {
             foreach (GameObject slot in stickSlotsList)
             {
                 if (slot.GetComponent<StickSlot>().topStickColor != desiredColor)
+                {
+                    Debug.Log("topStickColor: " + slot.GetComponent<StickSlot>().topStickColor + ", desired = " + desiredColor);
                     return;
+                }
             }
             shapeComplete = true;
             if (shapeInUI != null) {

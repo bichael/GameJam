@@ -60,10 +60,12 @@ public class StickSlot : MonoBehaviour
                         shapeSlot.AddToSidesFilled(false);
                     } else // Early exit to avoid stick placement if the colors match.
                     {
+                        Debug.Log("Early exit becausde colors match");
                         return;
                     }
                 } else // Avoid stick placement if there are 2 sticks already by returning from the function
                 {
+                    Debug.Log("Early exit because 2 sticks already in a slot");
                     return;
                 }
                 Camera.main.GetComponent<DraggableObject2D>().draggingMode = false;
@@ -79,7 +81,20 @@ public class StickSlot : MonoBehaviour
 
     private Color MixColors(Color color1, Color color2) 
     {
-        return Color.Lerp(color1, color2, 0.5f);
+        Color yellow = new Color(1.0f, 1.0f, 0);
+        Color purple = new Color(0.5f, 0, 0.5f);
+        Color orange = new Color(1.0f, 0.5f, 0);
+        // Blue + red = purple
+        if ((color1 == Color.blue && color2 == Color.red) || (color1 == Color.red && color2 == Color.blue))
+            return purple;
+        // Blue + yellow = green
+        else if ((color1 == Color.blue && color2 == yellow) || (color1 == yellow && color2 == Color.blue))
+            return Color.green;
+        // Red + yellow = orange
+        else if ((color1 == Color.red && color2 == yellow) || (color1 == yellow && color2 == Color.red))
+            return orange;
+        else
+            return color1 + color2;
     }
 
     public ShapeSlot GetShapeSlot()
