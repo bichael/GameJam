@@ -60,12 +60,10 @@ public class StickSlot : MonoBehaviour
                         shapeSlot.AddToSidesFilled(false);
                     } else // Early exit to avoid stick placement if the colors match.
                     {
-                        Debug.Log("Early exit becausde colors match");
                         return;
                     }
                 } else // Avoid stick placement if there are 2 sticks already by returning from the function
                 {
-                    Debug.Log("Early exit because 2 sticks already in a slot");
                     return;
                 }
                 Camera.main.GetComponent<DraggableObject2D>().draggingMode = false;

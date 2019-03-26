@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 /* This script allows an object to be draggable by holding left mouse button.
  * The dragging is only in 2 dimensions.
@@ -32,8 +33,10 @@ public class DraggableObject2D : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Press R to restart a level
+        if(Input.GetKeyDown(KeyCode.R))
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); 
         /*---- CLICK TO DRAG ----*/
-#if UNITY_EDITOR
         // First frame when user clicks left mouse
         if (Input.GetMouseButtonDown(0)) 
         {
@@ -115,6 +118,5 @@ public class DraggableObject2D : MonoBehaviour
             draggingMode = false;
             currentStick = null;
         }
-#endif
     }
 }

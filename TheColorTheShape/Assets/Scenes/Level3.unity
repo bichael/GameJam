@@ -2483,6 +2483,16 @@ PrefabInstance:
       propertyPath: victoryPanel
       value: 
       objectReference: {fileID: 670946930}
+    - target: {fileID: 7597155783457296712, guid: aa79ea56a30ad1c4abebf3bb581fe567,
+        type: 3}
+      propertyPath: desiredColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7597155783457296712, guid: aa79ea56a30ad1c4abebf3bb581fe567,
+        type: 3}
+      propertyPath: desiredColor.b
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1391939155143823430, guid: aa79ea56a30ad1c4abebf3bb581fe567,
         type: 3}
       propertyPath: m_LocalRotation.z
